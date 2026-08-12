@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="JE Funilaria e Pintura: reparos automotivos com acabamento de alto padrão, agilidade e transparência.">
+  <meta name="description" content="DJE Funilaria e Pintura: reparos automotivos com acabamento de alto padrão, agilidade e transparência.">
   <meta name="theme-color" content="#0f0f12">
-  <title>JE | Funilaria e Pintura Automotiva</title>
+  <title>DJE | Funilaria e Pintura Automotiva</title>
 
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -28,7 +28,7 @@
       --shadow: 0 22px 55px rgba(0, 0, 0, 0.34);
       --radius: 22px;
       --container: 1180px;
-      --header-height: 82px;
+      --header-height: 96px;
     }
 
     *,
@@ -133,7 +133,7 @@
     }
 
     .site-header.scrolled {
-      height: 70px;
+      height: 78px;
       border-color: var(--line);
       background: rgba(13, 13, 16, 0.94);
     }
@@ -149,19 +149,48 @@
     .brand {
       display: inline-flex;
       align-items: center;
+      gap: 13px;
       flex: 0 0 auto;
-      min-width: 116px;
+      min-width: 248px;
     }
 
     .brand img {
-      width: auto;
-      height: 52px;
+      width: 76px;
+      height: 76px;
       object-fit: contain;
-      transition: height 0.25s ease;
+      filter: drop-shadow(0 7px 15px rgba(0, 0, 0, 0.42));
+      transition: width 0.25s ease, height 0.25s ease, transform 0.25s ease;
     }
 
     .site-header.scrolled .brand img {
-      height: 44px;
+      width: 62px;
+      height: 62px;
+    }
+
+    .brand:hover img {
+      transform: scale(1.04);
+    }
+
+    .brand-copy {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .brand-copy strong {
+      color: var(--white);
+      font-size: 1.28rem;
+      font-weight: 950;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-copy small {
+      margin-top: 6px;
+      color: var(--orange);
+      font-size: 0.62rem;
+      font-weight: 850;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
 
     .brand-fallback {
@@ -182,6 +211,10 @@
 
     .brand.logo-missing .brand-fallback {
       display: inline-flex;
+    }
+
+    .brand.logo-missing .brand-copy {
+      display: none;
     }
 
     .desktop-nav {
@@ -325,6 +358,24 @@
       border: 1px solid rgba(243, 107, 33, 0.28);
       border-radius: 50%;
       box-shadow: 0 0 0 65px rgba(243, 107, 33, 0.04), 0 0 0 130px rgba(243, 107, 33, 0.02);
+    }
+
+    .hero > .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-brandmark {
+      position: absolute;
+      top: 51%;
+      right: max(34px, calc((100vw - var(--container)) / 2));
+      z-index: -1;
+      width: clamp(310px, 31vw, 455px);
+      transform: translateY(-50%);
+      opacity: 0.4;
+      filter: drop-shadow(0 28px 45px rgba(0, 0, 0, 0.52));
+      pointer-events: none;
+      user-select: none;
     }
 
     .hero-content {
@@ -802,7 +853,7 @@
     }
 
     .contact-card::after {
-      content: "JCE";
+      content: "DJE";
       position: absolute;
       right: -28px;
       bottom: -78px;
@@ -1029,6 +1080,15 @@
     }
 
     @media (max-width: 920px) {
+      .brand {
+        min-width: auto;
+      }
+
+      .brand-copy,
+      .hero-brandmark {
+        display: none;
+      }
+
       .desktop-nav,
       .header-cta {
         display: none;
@@ -1083,7 +1143,7 @@
 
     @media (max-width: 680px) {
       :root {
-        --header-height: 70px;
+        --header-height: 78px;
       }
 
       .container {
@@ -1091,7 +1151,13 @@
       }
 
       .brand img {
-        height: 44px;
+        width: 58px;
+        height: 58px;
+      }
+
+      .site-header.scrolled .brand img {
+        width: 52px;
+        height: 52px;
       }
 
       .hero {
@@ -1232,9 +1298,10 @@
 
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="#inicio" aria-label="JCE - voltar ao início">
-        <img src="imagens/logo.png" alt="JCE Funilaria e Pintura">
-        <span class="brand-fallback" aria-hidden="true">JCE <small>Funilaria &amp; Pintura</small></span>
+      <a class="brand" href="#inicio" aria-label="DJE - voltar ao início">
+        <img src="imagens/logo-web.png" alt="DJE Funilaria e Pintura">
+        <span class="brand-copy" aria-hidden="true"><strong>DJE</strong><small>Funilaria &amp; Pintura</small></span>
+        <span class="brand-fallback" aria-hidden="true">DJE <small>Funilaria &amp; Pintura</small></span>
       </a>
 
       <nav class="desktop-nav" id="site-nav" aria-label="Navegação principal">
@@ -1263,7 +1330,7 @@
         <div class="hero-content reveal visible">
           <p class="eyebrow">Cuidado automotivo de alto padrão</p>
           <h1 id="hero-title">Seu carro novo <span>de novo.</span></h1>
-          <p class="hero-copy">Funilaria e pintura com precisão, transparência e acabamento impecável. Na JCE, cada detalhe recebe o cuidado que o seu carro merece.</p>
+          <p class="hero-copy">Funilaria e pintura com precisão, transparência e acabamento impecável. Na DJE, cada detalhe recebe o cuidado que o seu carro merece.</p>
 
           <div class="hero-actions">
             <a class="button button-primary" href="https://wa.me/55DDDSEUNUMERO?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener noreferrer">
@@ -1277,7 +1344,7 @@
             </a>
           </div>
 
-          <ul class="hero-proof" aria-label="Diferenciais JCE">
+          <ul class="hero-proof" aria-label="Diferenciais DJE">
             <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Avaliação transparente</li>
             <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Acabamento de alto padrão</li>
             <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Atendimento direto</li>
@@ -1285,10 +1352,12 @@
         </div>
       </div>
 
+      <img class="hero-brandmark" src="imagens/logo-web.png" alt="" aria-hidden="true">
+
       <div class="scroll-cue" aria-hidden="true">Role para descobrir <span></span></div>
     </section>
 
-    <section class="trust-bar" aria-label="Compromissos da JCE">
+    <section class="trust-bar" aria-label="Compromissos da DJE">
       <div class="container trust-grid">
         <article class="trust-item reveal">
           <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
@@ -1414,37 +1483,37 @@
             <p class="section-kicker">Nosso trabalho</p>
             <h2 class="section-title" id="gallery-title">Resultado que se vê nos detalhes.</h2>
           </div>
-          <p class="section-intro">Uma seleção de serviços realizados pela JCE. Clique nas fotos para ampliar e observar o acabamento.</p>
+          <p class="section-intro">Uma seleção de serviços realizados pela DJE. Clique nas fotos para ampliar e observar o acabamento.</p>
         </div>
 
         <div class="gallery-grid">
           <button class="gallery-item reveal" type="button" data-full="imagens/foto1.jpg" data-caption="Recuperação de pintura e acabamento">
-            <img src="imagens/foto1.jpg" alt="Serviço de recuperação de pintura realizado pela JCE" loading="lazy">
+            <img src="imagens/foto1.jpg" alt="Serviço de recuperação de pintura realizado pela DJE" loading="lazy">
             <span class="gallery-fallback"><i class="fa-solid fa-car-side" aria-hidden="true"></i></span>
             <span class="gallery-label">Pintura &amp; acabamento <i class="fa-solid fa-expand" aria-hidden="true"></i></span>
           </button>
           <button class="gallery-item reveal" type="button" data-full="imagens/foto2.jpg" data-caption="Reparo de funilaria">
-            <img src="imagens/foto2.jpg" alt="Reparo de funilaria realizado pela JCE" loading="lazy">
+            <img src="imagens/foto2.jpg" alt="Reparo de funilaria realizado pela DJE" loading="lazy">
             <span class="gallery-fallback"><i class="fa-solid fa-car-side" aria-hidden="true"></i></span>
             <span class="gallery-label">Funilaria <i class="fa-solid fa-expand" aria-hidden="true"></i></span>
           </button>
           <button class="gallery-item reveal" type="button" data-full="imagens/foto3.jpg" data-caption="Polimento e brilho técnico">
-            <img src="imagens/foto3.jpg" alt="Polimento técnico realizado pela JCE" loading="lazy">
+            <img src="imagens/foto3.jpg" alt="Polimento técnico realizado pela DJE" loading="lazy">
             <span class="gallery-fallback"><i class="fa-solid fa-car-side" aria-hidden="true"></i></span>
             <span class="gallery-label">Polimento técnico <i class="fa-solid fa-expand" aria-hidden="true"></i></span>
           </button>
           <button class="gallery-item reveal" type="button" data-full="imagens/foto4.jpg" data-caption="Detalhes de preparação automotiva">
-            <img src="imagens/foto4.jpg" alt="Preparação automotiva executada pela JCE" loading="lazy">
+            <img src="imagens/foto4.jpg" alt="Preparação automotiva executada pela DJE" loading="lazy">
             <span class="gallery-fallback"><i class="fa-solid fa-car-side" aria-hidden="true"></i></span>
             <span class="gallery-label">Preparação <i class="fa-solid fa-expand" aria-hidden="true"></i></span>
           </button>
           <button class="gallery-item reveal" type="button" data-full="imagens/foto5.jpg" data-caption="Resultado final após reparo">
-            <img src="imagens/foto5.jpg" alt="Resultado final de reparo automotivo da JCE" loading="lazy">
+            <img src="imagens/foto5.jpg" alt="Resultado final de reparo automotivo da DJE" loading="lazy">
             <span class="gallery-fallback"><i class="fa-solid fa-car-side" aria-hidden="true"></i></span>
             <span class="gallery-label">Resultado final <i class="fa-solid fa-expand" aria-hidden="true"></i></span>
           </button>
-          <button class="gallery-item reveal" type="button" data-full="imagens/foto6.jpg" data-caption="Acabamento de alto padrão JCE">
-            <img src="imagens/foto6.jpg" alt="Acabamento automotivo de alto padrão JCE" loading="lazy">
+          <button class="gallery-item reveal" type="button" data-full="imagens/foto6.jpg" data-caption="Acabamento de alto padrão DJE">
+            <img src="imagens/foto6.jpg" alt="Acabamento automotivo de alto padrão DJE" loading="lazy">
             <span class="gallery-fallback"><i class="fa-solid fa-car-side" aria-hidden="true"></i></span>
             <span class="gallery-label">Detalhamento <i class="fa-solid fa-expand" aria-hidden="true"></i></span>
           </button>
@@ -1456,7 +1525,7 @@
       <div class="container">
         <div class="contact-card reveal">
           <div class="contact-copy">
-            <p class="section-kicker">Fale com a JCE</p>
+            <p class="section-kicker">Fale com a DJE</p>
             <h2 id="contact-title">Seu carro merece voltar impecável.</h2>
             <p>Envie algumas fotos pelo WhatsApp, conte o que aconteceu e receba uma orientação inicial para o seu orçamento.</p>
             <a class="button button-primary" href="https://wa.me/55DDDSEUNUMERO?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener noreferrer">
@@ -1487,10 +1556,10 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>© <span id="current-year"></span> JCE Funilaria e Pintura. Todos os direitos reservados.</p>
+      <p>© <span id="current-year"></span> DJE Funilaria e Pintura. Todos os direitos reservados.</p>
       <div class="social-links" aria-label="Redes sociais e contato">
-        <a class="social-link" href="https://instagram.com/SEUPERFIL" target="_blank" rel="noopener noreferrer" aria-label="Instagram da JCE"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
-        <a class="social-link" href="https://wa.me/55DDDSEUNUMERO?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener noreferrer" aria-label="WhatsApp da JCE"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
+        <a class="social-link" href="https://instagram.com/SEUPERFIL" target="_blank" rel="noopener noreferrer" aria-label="Instagram da DJE"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+        <a class="social-link" href="https://wa.me/55DDDSEUNUMERO?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener noreferrer" aria-label="WhatsApp da DJE"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
       </div>
     </div>
   </footer>
