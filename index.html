@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="JCE Funilaria e Pintura: reparos automotivos com acabamento de alto padrão, agilidade e transparência.">
+  <meta name="theme-color" content="#0f0f12">
+  <title>JCE | Funilaria e Pintura Automotiva</title>
+
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <style>
+    :root {
+      --bg: #0f0f12;
+      --bg-soft: #151519;
+      --surface: #1b1b20;
+      --surface-2: #222228;
+      --text: #f7f7f8;
+      --muted: #aaaab3;
+      --line: rgba(255, 255, 255, 0.1);
+      --orange: #f36b21;
+      --orange-hover: #ff7a24;
+      --red-detail: #d32635;
+      --gold: #ffb36b;
+      --white: #ffffff;
+      --success: #25d366;
+      --shadow: 0 22px 55px rgba(0, 0, 0, 0.34);
+      --radius: 22px;
+      --container: 1180px;
+      --header-height: 82px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--header-height) + 18px);
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 90% 8%, rgba(243, 107, 33, 0.1), transparent 28rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 4px;
+    }
+
+    ::selection {
+      background: var(--orange);
+      color: var(--white);
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--container));
+      margin-inline: auto;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 2000;
+      transform: translateY(-160%);
+      border-radius: 10px;
+      background: var(--white);
+      color: #111;
+      padding: 10px 16px;
+      font-weight: 800;
+      transition: transform 0.2s ease;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .scroll-progress {
+      position: fixed;
+      inset: 0 auto auto 0;
+      z-index: 1500;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--orange), var(--red-detail));
+      box-shadow: 0 0 18px rgba(243, 107, 33, 0.55);
+    }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 1000;
+      height: var(--header-height);
+      border-bottom: 1px solid transparent;
+      background: linear-gradient(to bottom, rgba(10, 10, 12, 0.96), rgba(10, 10, 12, 0.58));
+      backdrop-filter: blur(12px);
+      transition: height 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .site-header.scrolled {
+      height: 70px;
+      border-color: var(--line);
+      background: rgba(13, 13, 16, 0.94);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      gap: 28px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      flex: 0 0 auto;
+      min-width: 116px;
+    }
+
+    .brand img {
+      width: auto;
+      height: 52px;
+      object-fit: contain;
+      transition: height 0.25s ease;
+    }
+
+    .site-header.scrolled .brand img {
+      height: 44px;
+    }
+
+    .brand-fallback {
+      display: none;
+      align-items: baseline;
+      gap: 7px;
+      font-size: 1.65rem;
+      font-weight: 950;
+      letter-spacing: -0.05em;
+    }
+
+    .brand-fallback small {
+      color: var(--orange);
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .brand.logo-missing .brand-fallback {
+      display: inline-flex;
+    }
+
+    .desktop-nav {
+      margin-left: auto;
+    }
+
+    .nav-list {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .nav-link {
+      position: relative;
+      color: #d7d7dc;
+      font-size: 0.88rem;
+      font-weight: 750;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s ease;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: -8px;
+      left: 0;
+      height: 2px;
+      transform: scaleX(0);
+      transform-origin: left;
+      background: var(--orange);
+      transition: transform 0.25s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--white);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      transform: scaleX(1);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      gap: 10px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      padding: 12px 20px;
+      cursor: pointer;
+      font-weight: 850;
+      line-height: 1.2;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+    }
+
+    .button-primary {
+      background: var(--orange);
+      color: var(--white);
+      box-shadow: 0 13px 28px rgba(243, 107, 33, 0.25);
+    }
+
+    .button-primary:hover {
+      background: var(--orange-hover);
+      box-shadow: 0 17px 34px rgba(243, 107, 33, 0.36);
+    }
+
+    .button-outline {
+      border-color: rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--white);
+    }
+
+    .button-outline:hover {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .header-cta {
+      min-height: 44px;
+      padding: 10px 17px;
+      font-size: 0.9rem;
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 46px;
+      height: 46px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+      color: var(--white);
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      min-height: 100svh;
+      align-items: center;
+      overflow: hidden;
+      isolation: isolate;
+      padding: calc(var(--header-height) + 88px) 0 88px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -3;
+      background:
+        linear-gradient(90deg, rgba(9, 9, 12, 0.98) 8%, rgba(9, 9, 12, 0.87) 45%, rgba(9, 9, 12, 0.42) 78%, rgba(9, 9, 12, 0.76) 100%),
+        linear-gradient(to top, var(--bg) 0%, transparent 34%),
+        url("imagens/foto1.jpg") center 42% / cover no-repeat;
+      filter: saturate(0.72) contrast(1.08);
+      transform: scale(1.02);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 17%;
+      right: -8rem;
+      z-index: -2;
+      width: 31rem;
+      height: 31rem;
+      border: 1px solid rgba(243, 107, 33, 0.28);
+      border-radius: 50%;
+      box-shadow: 0 0 0 65px rgba(243, 107, 33, 0.04), 0 0 0 130px rgba(243, 107, 33, 0.02);
+    }
+
+    .hero-content {
+      max-width: 790px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 22px;
+      color: #dedee3;
+      font-size: 0.8rem;
+      font-weight: 850;
+      letter-spacing: 0.19em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 38px;
+      height: 3px;
+      background: var(--orange);
+      box-shadow: 0 0 12px rgba(243, 107, 33, 0.65);
+    }
+
+    .hero h1 {
+      max-width: 760px;
+      margin: 0;
+      font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+      font-size: clamp(3.65rem, 8.2vw, 7.6rem);
+      font-weight: 900;
+      letter-spacing: 0.005em;
+      line-height: 0.87;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+
+    .hero h1 span {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1.6px rgba(255, 255, 255, 0.72);
+      text-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+    }
+
+    .hero-copy {
+      max-width: 630px;
+      margin: 28px 0 0;
+      color: #c7c7ce;
+      font-size: clamp(1rem, 2vw, 1.18rem);
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .hero-actions .button {
+      min-height: 56px;
+      padding-inline: 24px;
+    }
+
+    .hero-proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 22px;
+      margin: 34px 0 0;
+      padding: 0;
+      list-style: none;
+      color: #d4d4da;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .hero-proof li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-proof i {
+      color: var(--red-detail);
+    }
+
+    .scroll-cue {
+      position: absolute;
+      right: max(24px, calc((100vw - var(--container)) / 2));
+      bottom: 34px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+    }
+
+    .scroll-cue span {
+      width: 1px;
+      height: 48px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .scroll-cue span::after {
+      content: "";
+      display: block;
+      width: 1px;
+      height: 18px;
+      background: var(--red-detail);
+      animation: scrollLine 1.8s ease-in-out infinite;
+    }
+
+    @keyframes scrollLine {
+      from { transform: translateY(-20px); }
+      to { transform: translateY(52px); }
+    }
+
+    .trust-bar {
+      position: relative;
+      z-index: 2;
+      border-block: 1px solid var(--line);
+      background: #121216;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-height: 118px;
+      padding: 26px 34px;
+      border-right: 1px solid var(--line);
+    }
+
+    .trust-item:last-child {
+      border-right: 0;
+    }
+
+    .trust-item i {
+      color: var(--orange);
+      font-size: 1.65rem;
+    }
+
+    .trust-item strong,
+    .trust-item span {
+      display: block;
+    }
+
+    .trust-item strong {
+      font-size: 0.98rem;
+    }
+
+    .trust-item span {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .section {
+      position: relative;
+      padding: 112px 0;
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.6fr);
+      align-items: end;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    .section-kicker {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 12px;
+      color: var(--orange);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .section-kicker::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      background: currentColor;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(2.25rem, 5vw, 4.35rem);
+      letter-spacing: -0.05em;
+      line-height: 1.02;
+      text-wrap: balance;
+    }
+
+    .section-intro {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.78;
+    }
+
+    .services {
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.018), transparent 35%),
+        var(--bg-soft);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .service-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.008));
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .service-card:hover,
+    .service-card.open {
+      border-color: rgba(243, 107, 33, 0.5);
+      box-shadow: var(--shadow);
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .service-trigger {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      width: 100%;
+      gap: 20px;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      padding: 26px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .service-icon {
+      display: grid;
+      width: 58px;
+      height: 58px;
+      place-items: center;
+      border: 1px solid rgba(243, 107, 33, 0.28);
+      border-radius: 16px;
+      background: rgba(243, 107, 33, 0.1);
+      color: var(--orange);
+      font-size: 1.35rem;
+      transition: color 0.25s ease, background 0.25s ease;
+    }
+
+    .service-card.open .service-icon {
+      background: var(--orange);
+      color: var(--white);
+    }
+
+    .service-summary strong,
+    .service-summary span {
+      display: block;
+    }
+
+    .service-summary strong {
+      font-size: 1.2rem;
+    }
+
+    .service-summary span {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .service-arrow {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: #d7d7db;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .service-card.open .service-arrow {
+      transform: rotate(180deg);
+      border-color: rgba(243, 107, 33, 0.58);
+    }
+
+    .service-panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s ease;
+    }
+
+    .service-card.open .service-panel {
+      grid-template-rows: 1fr;
+    }
+
+    .service-panel-inner {
+      overflow: hidden;
+    }
+
+    .service-details {
+      margin: 0 26px 26px 104px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+
+    .service-details p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .service-features {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 18px;
+      margin: 0 0 22px;
+      padding: 0;
+      list-style: none;
+      color: #d9d9de;
+      font-size: 0.86rem;
+    }
+
+    .service-features li {
+      display: flex;
+      gap: 8px;
+    }
+
+    .service-features i {
+      margin-top: 5px;
+      color: var(--orange);
+      font-size: 0.72rem;
+    }
+
+    .service-quote {
+      min-height: 44px;
+      padding: 10px 16px;
+      font-size: 0.86rem;
+    }
+
+    .gallery {
+      overflow: hidden;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 250px;
+      gap: 16px;
+    }
+
+    .gallery-item {
+      position: relative;
+      grid-column: span 4;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg, rgba(243, 107, 33, 0.14), transparent 55%),
+        var(--surface);
+      color: var(--white);
+      padding: 0;
+      cursor: zoom-in;
+      text-align: left;
+      box-shadow: none;
+    }
+
+    .gallery-item:nth-child(1),
+    .gallery-item:nth-child(5) {
+      grid-column: span 8;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.84) contrast(1.04);
+      transition: transform 0.55s cubic-bezier(0.2, 0.75, 0.2, 1), filter 0.45s ease;
+    }
+
+    .gallery-item::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.88), transparent 58%);
+      pointer-events: none;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.065);
+      filter: saturate(1.05) contrast(1.06);
+    }
+
+    .gallery-label {
+      position: absolute;
+      right: 20px;
+      bottom: 18px;
+      left: 20px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      font-size: 0.9rem;
+      font-weight: 850;
+    }
+
+    .gallery-label i {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--orange);
+    }
+
+    .gallery-fallback {
+      position: absolute;
+      inset: 0;
+      display: none;
+      place-items: center;
+      color: rgba(255, 255, 255, 0.12);
+      font-size: 4rem;
+    }
+
+    .gallery-item.image-missing .gallery-fallback {
+      display: grid;
+    }
+
+    .gallery-item.image-missing::after {
+      background: linear-gradient(135deg, rgba(243, 107, 33, 0.18), rgba(0, 0, 0, 0.38));
+    }
+
+    .contact {
+      padding-top: 50px;
+    }
+
+    .contact-card {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(290px, 0.75fr);
+      gap: 50px;
+      border: 1px solid rgba(243, 107, 33, 0.28);
+      border-radius: 30px;
+      background:
+        linear-gradient(110deg, rgba(243, 107, 33, 0.14), transparent 45%),
+        var(--surface);
+      padding: clamp(34px, 6vw, 72px);
+      box-shadow: var(--shadow);
+    }
+
+    .contact-card::after {
+      content: "JCE";
+      position: absolute;
+      right: -28px;
+      bottom: -78px;
+      color: rgba(255, 255, 255, 0.025);
+      font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+      font-size: clamp(10rem, 27vw, 22rem);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .contact-copy,
+    .contact-info {
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-copy h2 {
+      max-width: 700px;
+      margin: 0;
+      font-size: clamp(2.4rem, 5.2vw, 4.8rem);
+      letter-spacing: -0.055em;
+      line-height: 0.98;
+    }
+
+    .contact-copy p {
+      max-width: 640px;
+      margin: 22px 0 30px;
+      color: #bdbdc5;
+    }
+
+    .contact-copy .button {
+      min-height: 56px;
+    }
+
+    .contact-info {
+      display: grid;
+      align-content: center;
+      gap: 14px;
+    }
+
+    .contact-info-item {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 14px;
+      align-items: start;
+      border-bottom: 1px solid var(--line);
+      padding: 0 0 16px;
+    }
+
+    .contact-info-item:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .contact-info-item i {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border-radius: 12px;
+      background: rgba(243, 107, 33, 0.11);
+      color: var(--orange);
+    }
+
+    .contact-info-item strong,
+    .contact-info-item span,
+    .contact-info-item a {
+      display: block;
+    }
+
+    .contact-info-item strong {
+      margin-bottom: 3px;
+      font-size: 0.86rem;
+    }
+
+    .contact-info-item span,
+    .contact-info-item a {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .contact-info-item a:hover {
+      color: var(--white);
+    }
+
+    .site-footer {
+      padding: 38px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      border-top: 1px solid var(--line);
+      padding-top: 28px;
+      color: #888890;
+      font-size: 0.82rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 10px;
+    }
+
+    .social-link {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: #d8d8dc;
+      font-size: 1.08rem;
+      transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .social-link:hover {
+      transform: translateY(-3px);
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 900;
+      display: grid;
+      width: 58px;
+      height: 58px;
+      place-items: center;
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      border-radius: 50%;
+      background: var(--success);
+      color: var(--white);
+      box-shadow: 0 12px 30px rgba(37, 211, 102, 0.32);
+      font-size: 1.75rem;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .whatsapp-float:hover {
+      transform: translateY(-4px) scale(1.04);
+      box-shadow: 0 18px 34px rgba(37, 211, 102, 0.42);
+    }
+
+    .whatsapp-float::before {
+      content: "Orçamento rápido";
+      position: absolute;
+      right: 68px;
+      width: max-content;
+      border-radius: 9px;
+      background: #f8f8f8;
+      color: #171719;
+      padding: 7px 10px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      opacity: 0;
+      transform: translateX(8px);
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .whatsapp-float:hover::before {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .lightbox {
+      width: min(94vw, 1120px);
+      max-height: 90vh;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 18px;
+      background: #0d0d10;
+      color: var(--white);
+      padding: 0;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.75);
+    }
+
+    .lightbox::backdrop {
+      background: rgba(0, 0, 0, 0.86);
+      backdrop-filter: blur(8px);
+    }
+
+    .lightbox img {
+      width: 100%;
+      max-height: 78vh;
+      object-fit: contain;
+      background: #09090b;
+    }
+
+    .lightbox-caption {
+      margin: 0;
+      padding: 14px 66px 16px 18px;
+      color: #c8c8cf;
+      font-size: 0.9rem;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 2;
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.68);
+      color: var(--white);
+      cursor: pointer;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.72s ease, transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 920px) {
+      .desktop-nav,
+      .header-cta {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+      }
+
+      .desktop-nav.open {
+        position: fixed;
+        inset: var(--header-height) 0 0;
+        display: grid;
+        place-items: start center;
+        background: rgba(12, 12, 15, 0.98);
+        padding: 48px 20px;
+      }
+
+      .desktop-nav.open .nav-list {
+        flex-direction: column;
+        gap: 28px;
+      }
+
+      .desktop-nav.open .nav-link {
+        font-size: 1.1rem;
+      }
+
+      .section-heading {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid {
+        grid-auto-rows: 220px;
+      }
+
+      .gallery-item,
+      .gallery-item:nth-child(1),
+      .gallery-item:nth-child(5) {
+        grid-column: span 6;
+      }
+
+      .contact-card {
+        grid-template-columns: 1fr;
+        gap: 42px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      :root {
+        --header-height: 70px;
+      }
+
+      .container {
+        width: min(calc(100% - 30px), var(--container));
+      }
+
+      .brand img {
+        height: 44px;
+      }
+
+      .hero {
+        min-height: 92svh;
+        padding-top: calc(var(--header-height) + 68px);
+      }
+
+      .hero::before {
+        background:
+          linear-gradient(to right, rgba(9, 9, 12, 0.93), rgba(9, 9, 12, 0.68)),
+          linear-gradient(to top, var(--bg), transparent 42%),
+          url("imagens/foto1.jpg") 62% center / cover no-repeat;
+      }
+
+      .hero h1 {
+        font-size: clamp(3.15rem, 17vw, 5rem);
+      }
+
+      .hero-actions .button {
+        width: 100%;
+      }
+
+      .scroll-cue {
+        display: none;
+      }
+
+      .hero-proof {
+        display: grid;
+        gap: 8px;
+      }
+
+      .trust-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .trust-item {
+        min-height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        padding: 22px 4px;
+      }
+
+      .trust-item:last-child {
+        border-bottom: 0;
+      }
+
+      .section {
+        padding: 86px 0;
+      }
+
+      .service-trigger {
+        grid-template-columns: auto 1fr auto;
+        gap: 14px;
+        padding: 20px;
+      }
+
+      .service-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 13px;
+      }
+
+      .service-summary strong {
+        font-size: 1.02rem;
+      }
+
+      .service-summary span {
+        display: none;
+      }
+
+      .service-arrow {
+        width: 34px;
+        height: 34px;
+      }
+
+      .service-details {
+        margin: 0 20px 22px;
+      }
+
+      .service-features {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 250px;
+      }
+
+      .gallery-item,
+      .gallery-item:nth-child(1),
+      .gallery-item:nth-child(5) {
+        grid-column: 1;
+      }
+
+      .contact {
+        padding-top: 24px;
+      }
+
+      .contact-card {
+        border-radius: 22px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .whatsapp-float::before {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#inicio" aria-label="JCE - voltar ao início">
+        <img src="imagens/logo.png" alt="JCE Funilaria e Pintura">
+        <span class="brand-fallback" aria-hidden="true">JCE <small>Funilaria &amp; Pintura</small></span>
+      </a>
+
+      <nav class="desktop-nav" id="site-nav" aria-label="Navegação principal">
+        <ul class="nav-list">
+          <li><a class="nav-link active" href="#inicio">Início</a></li>
+          <li><a class="nav-link" href="#servicos">Serviços</a></li>
+          <li><a class="nav-link" href="#galeria">Galeria</a></li>
+          <li><a class="nav-link" href="#contato">Contato</a></li>
+        </ul>
+      </nav>
+
+      <a class="button button-primary header-cta" href="https://wa.me/55DDDSEUNUMERO?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+        Pedir orçamento
+      </a>
+
+      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-controls="site-nav" aria-expanded="false">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="hero-content reveal visible">
+          <p class="eyebrow">Cuidado automotivo de alto padrão</p>
+          <h1 id="hero-title">Seu carro novo <span>de novo.</span></h1>
+          <p class="hero-copy">Funilaria e pintura com precisão, transparência e acabamento impecável. Na JCE, cada detalhe recebe o cuidado que o seu carro merece.</p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://wa.me/55DDDSEUNUMERO?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+              Solicitar orçamento rápido
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+            <a class="button button-outline" href="#servicos">
+              Conhecer serviços
+              <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+            </a>
+          </div>
+
+          <ul class="hero-proof" aria-label="Diferenciais JCE">
+            <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Avaliação transparente</li>
+            <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Acabamento de alto padrão</li>
+            <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Atendimento direto</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="scroll-cue" aria-hidden="true">Role para descobrir <span></span></div>
+    </section>
+
+    <section class="trust-bar" aria-label="Compromissos da JCE">
+      <div class="container trust-grid">
+        <article class="trust-item reveal">
+          <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+          <div><strong>Serviço com garantia</strong><span>Confiança do orçamento à entrega</span></div>
+        </article>
+        <article class="trust-item reveal">
+          <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
+          <div><strong>Agilidade com qualidade</strong><span>Prazo claro e execução cuidadosa</span></div>
+        </article>
+        <article class="trust-item reveal">
+          <i class="fa-solid fa-gem" aria-hidden="true"></i>
+          <div><strong>Acabamento premium</strong><span>Precisão em cada detalhe</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section services" id="servicos" aria-labelledby="services-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="section-kicker">Especialidades</p>
+            <h2 class="section-title" id="services-title">Soluções completas para o seu carro.</h2>
+          </div>
+          <p class="section-intro">Clique em cada serviço para ver os detalhes. Fazemos uma avaliação cuidadosa e indicamos somente o reparo que o veículo realmente precisa.</p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card reveal">
+            <button class="service-trigger" type="button" aria-expanded="false" aria-controls="service-panel-1">
+              <span class="service-icon"><i class="fa-solid fa-car-burst" aria-hidden="true"></i></span>
+              <span class="service-summary"><strong>Funilaria Express</strong><span>Reparos rápidos em amassados e avarias</span></span>
+              <span class="service-arrow"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
+            </button>
+            <div class="service-panel" id="service-panel-1">
+              <div class="service-panel-inner">
+                <div class="service-details">
+                  <p>Correção de pequenas e médias avarias com técnica, agilidade e preservação máxima das características originais do veículo.</p>
+                  <ul class="service-features">
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Avaliação precisa</li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Prazo transparente</li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Ajuste de peças</li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Acabamento cuidadoso</li>
+                  </ul>
+                  <a class="button button-primary service-quote" data-service="Funilaria Express" href="https://wa.me/55DDDSEUNUMERO?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20Funilaria%20Express." target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Orçar este serviço</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card reveal">
+            <button class="service-trigger" type="button" aria-expanded="false" aria-controls="service-panel-2">
+              <span class="service-icon"><i class="fa-solid fa-spray-can-sparkles" aria-hidden="true"></i></span>
+              <span class="service-summary"><strong>Pintura Automotiva</strong><span>Cor uniforme e brilho de alto padrão</span></span>
+              <span class="service-arrow"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
+            </button>
+            <div class="service-panel" id="service-panel-2">
+              <div class="service-panel-inner">
+                <div class="service-details">
+                  <p>Preparação técnica e pintura precisa para recuperar a tonalidade, o brilho e a proteção da lataria com acabamento uniforme.</p>
+                  <ul class="service-features">
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Acerto de tonalidade</li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Preparação profissional</li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Pintura localizada</li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Verniz de alta resistência</li>
+                  </ul>
+                  <a class="button button-primary service-quote" data-service="Pintura Automotiva" href="https://wa.me/55DDDSEUNUMERO?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20Pintura%20Automotiva." target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Orçar este serviço</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card reveal">
+            <button class="service-trigger" type="button" aria-expanded="false" aria-controls="service-panel-3">
+              <span class="service-icon"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i></span>
+              <span class="service-summary"><strong>Polimento Técnico</strong><span>Brilho profundo e correção da pintura</span></span>
+              <span class="service-arrow"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
+            </button>
+            <div class="service-panel" id="service-panel-3">
+              <div class="service-panel-inner">
+                <div class="service-details">
+                  <p>Processo controlado para remover marcas superficiais, microrriscos e perda de brilho, valorizando novamente a pintura.</p>
+                  <ul class="service-features">
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Descontaminação</li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Correção de microrriscos</li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Realce de brilho</li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Proteção final</li>
+                  </ul>
+                  <a class="button button-primary service-quote" data-service="Polimento Técnico" href="https://wa.me/55DDDSEUNUMERO?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20Polimento%20T%C3%A9cnico." target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Orçar este serviço</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card reveal">
+            <button class="service-trigger" type="button" aria-expanded="false" aria-controls="service-panel-4">
+              <span class="service-icon"><i class="fa-solid fa-hammer" aria-hidden="true"></i></span>
+              <span class="service-summary"><strong>Martelinho de Ouro</strong><span>Desamassamento sem comprometer a pintura</span></span>
+              <span class="service-arrow"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
+            </button>
+            <div class="service-panel" id="service-panel-4">
+              <div class="service-panel-inner">
+                <div class="service-details">
+                  <p>Técnica indicada para amassados em que a pintura permanece intacta, recuperando a forma da lataria sem repintura desnecessária.</p>
+                  <ul class="service-features">
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Preserva a pintura</li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Intervenção localizada</li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Execução ágil</li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Excelente custo-benefício</li>
+                  </ul>
+                  <a class="button button-primary service-quote" data-service="Martelinho de Ouro" href="https://wa.me/55DDDSEUNUMERO?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20Martelinho%20de%20Ouro." target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Orçar este serviço</a>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section gallery" id="galeria" aria-labelledby="gallery-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="section-kicker">Nosso trabalho</p>
+            <h2 class="section-title" id="gallery-title">Resultado que se vê nos detalhes.</h2>
+          </div>
+          <p class="section-intro">Uma seleção de serviços realizados pela JCE. Clique nas fotos para ampliar e observar o acabamento.</p>
+        </div>
+
+        <div class="gallery-grid">
+          <button class="gallery-item reveal" type="button" data-full="imagens/foto1.jpg" data-caption="Recuperação de pintura e acabamento">
+            <img src="imagens/foto1.jpg" alt="Serviço de recuperação de pintura realizado pela JCE" loading="lazy">
+            <span class="gallery-fallback"><i class="fa-solid fa-car-side" aria-hidden="true"></i></span>
+            <span class="gallery-label">Pintura &amp; acabamento <i class="fa-solid fa-expand" aria-hidden="true"></i></span>
+          </button>
+          <button class="gallery-item reveal" type="button" data-full="imagens/foto2.jpg" data-caption="Reparo de funilaria">
+            <img src="imagens/foto2.jpg" alt="Reparo de funilaria realizado pela JCE" loading="lazy">
+            <span class="gallery-fallback"><i class="fa-solid fa-car-side" aria-hidden="true"></i></span>
+            <span class="gallery-label">Funilaria <i class="fa-solid fa-expand" aria-hidden="true"></i></span>
+          </button>
+          <button class="gallery-item reveal" type="button" data-full="imagens/foto3.jpg" data-caption="Polimento e brilho técnico">
+            <img src="imagens/foto3.jpg" alt="Polimento técnico realizado pela JCE" loading="lazy">
+            <span class="gallery-fallback"><i class="fa-solid fa-car-side" aria-hidden="true"></i></span>
+            <span class="gallery-label">Polimento técnico <i class="fa-solid fa-expand" aria-hidden="true"></i></span>
+          </button>
+          <button class="gallery-item reveal" type="button" data-full="imagens/foto4.jpg" data-caption="Detalhes de preparação automotiva">
+            <img src="imagens/foto4.jpg" alt="Preparação automotiva executada pela JCE" loading="lazy">
+            <span class="gallery-fallback"><i class="fa-solid fa-car-side" aria-hidden="true"></i></span>
+            <span class="gallery-label">Preparação <i class="fa-solid fa-expand" aria-hidden="true"></i></span>
+          </button>
+          <button class="gallery-item reveal" type="button" data-full="imagens/foto5.jpg" data-caption="Resultado final após reparo">
+            <img src="imagens/foto5.jpg" alt="Resultado final de reparo automotivo da JCE" loading="lazy">
+            <span class="gallery-fallback"><i class="fa-solid fa-car-side" aria-hidden="true"></i></span>
+            <span class="gallery-label">Resultado final <i class="fa-solid fa-expand" aria-hidden="true"></i></span>
+          </button>
+          <button class="gallery-item reveal" type="button" data-full="imagens/foto6.jpg" data-caption="Acabamento de alto padrão JCE">
+            <img src="imagens/foto6.jpg" alt="Acabamento automotivo de alto padrão JCE" loading="lazy">
+            <span class="gallery-fallback"><i class="fa-solid fa-car-side" aria-hidden="true"></i></span>
+            <span class="gallery-label">Detalhamento <i class="fa-solid fa-expand" aria-hidden="true"></i></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contato" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="contact-card reveal">
+          <div class="contact-copy">
+            <p class="section-kicker">Fale com a JCE</p>
+            <h2 id="contact-title">Seu carro merece voltar impecável.</h2>
+            <p>Envie algumas fotos pelo WhatsApp, conte o que aconteceu e receba uma orientação inicial para o seu orçamento.</p>
+            <a class="button button-primary" href="https://wa.me/55DDDSEUNUMERO?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+              Conversar no WhatsApp
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+
+          <div class="contact-info" aria-label="Informações de contato">
+            <div class="contact-info-item">
+              <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+              <div><strong>Localização</strong><span>SUA CIDADE • SEU BAIRRO</span></div>
+            </div>
+            <div class="contact-info-item">
+              <i class="fa-regular fa-clock" aria-hidden="true"></i>
+              <div><strong>Horário</strong><span>Seg a sex: 8h às 18h<br>Sábado: 8h às 12h</span></div>
+            </div>
+            <div class="contact-info-item">
+              <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+              <div><strong>Instagram</strong><a href="https://instagram.com/SEUPERFIL" target="_blank" rel="noopener noreferrer">@SEUPERFIL</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="current-year"></span> JCE Funilaria e Pintura. Todos os direitos reservados.</p>
+      <div class="social-links" aria-label="Redes sociais e contato">
+        <a class="social-link" href="https://instagram.com/SEUPERFIL" target="_blank" rel="noopener noreferrer" aria-label="Instagram da JCE"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+        <a class="social-link" href="https://wa.me/55DDDSEUNUMERO?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener noreferrer" aria-label="WhatsApp da JCE"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <a class="whatsapp-float" href="https://wa.me/55DDDSEUNUMERO?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener noreferrer" aria-label="Solicitar orçamento pelo WhatsApp">
+    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+  </a>
+
+  <dialog class="lightbox" aria-labelledby="lightbox-caption">
+    <button class="lightbox-close" type="button" aria-label="Fechar imagem"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+    <img src="" alt="">
+    <p class="lightbox-caption" id="lightbox-caption"></p>
+  </dialog>
+
+  <script>
+    const header = document.querySelector('.site-header');
+    const progressBar = document.querySelector('.scroll-progress');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navigation = document.querySelector('.desktop-nav');
+    const navLinks = [...document.querySelectorAll('.nav-link')];
+    const sections = [...document.querySelectorAll('main section[id], header[id]')];
+
+    const closeMenu = () => {
+      navigation.classList.remove('open');
+      document.body.classList.remove('menu-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Abrir menu');
+      menuToggle.querySelector('i').className = 'fa-solid fa-bars';
+    };
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = navigation.classList.toggle('open');
+      document.body.classList.toggle('menu-open', isOpen);
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+      menuToggle.querySelector('i').className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+    });
+
+    navLinks.forEach((link) => link.addEventListener('click', closeMenu));
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 920) closeMenu();
+    });
+
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 24);
+
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+      progressBar.style.width = `${Math.min(progress, 100)}%`;
+    }, { passive: true });
+
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach((link) => {
+          const target = link.getAttribute('href').slice(1);
+          link.classList.toggle('active', target === entry.target.id);
+        });
+      });
+    }, { rootMargin: '-38% 0px -54% 0px', threshold: 0 });
+
+    sections.forEach((section) => navObserver.observe(section));
+
+    document.querySelectorAll('.service-trigger').forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const card = trigger.closest('.service-card');
+        const willOpen = !card.classList.contains('open');
+
+        document.querySelectorAll('.service-card.open').forEach((openCard) => {
+          if (openCard !== card) {
+            openCard.classList.remove('open');
+            openCard.querySelector('.service-trigger').setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        card.classList.toggle('open', willOpen);
+        trigger.setAttribute('aria-expanded', String(willOpen));
+      });
+    });
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealElements = document.querySelectorAll('.reveal:not(.visible)');
+
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      revealElements.forEach((element) => element.classList.add('visible'));
+    } else {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -55px' });
+
+      revealElements.forEach((element) => revealObserver.observe(element));
+    }
+
+    const lightbox = document.querySelector('.lightbox');
+    const lightboxImage = lightbox.querySelector('img');
+    const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+    const lightboxClose = lightbox.querySelector('.lightbox-close');
+
+    document.querySelectorAll('.gallery-item').forEach((item) => {
+      const image = item.querySelector('img');
+
+      const handleImageError = () => {
+        if (!image.isConnected) return;
+        item.classList.add('image-missing');
+        image.remove();
+      };
+
+      image.addEventListener('error', handleImageError);
+      if (image.complete && image.naturalWidth === 0) handleImageError();
+
+      item.addEventListener('click', () => {
+        if (item.classList.contains('image-missing')) return;
+        lightboxImage.src = item.dataset.full;
+        lightboxImage.alt = image.alt;
+        lightboxCaption.textContent = item.dataset.caption;
+        lightbox.showModal();
+      });
+    });
+
+    lightboxClose.addEventListener('click', () => lightbox.close());
+    lightbox.addEventListener('click', (event) => {
+      const rect = lightbox.getBoundingClientRect();
+      const outside = event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom;
+      if (outside) lightbox.close();
+    });
+
+    const logo = document.querySelector('.brand img');
+    const handleLogoError = () => {
+      if (!logo.isConnected) return;
+      logo.remove();
+      document.querySelector('.brand').classList.add('logo-missing');
+    };
+
+    logo.addEventListener('error', handleLogoError);
+    if (logo.complete && logo.naturalWidth === 0) handleLogoError();
+
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
